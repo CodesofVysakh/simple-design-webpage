@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="./resources/css/index.css" />
+        <title>My Website</title>
+        <link rel="stylesheet" href="styles.css" />
+    </head>
+
+    <body class="wrapper">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo">
+                <img src="./resources/images/logo.png" alt="Logo" />
+            </div>
+            <button class="menu-button" id="menuButton">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </header>
+
+        <!-- Side panel -->
+        <div class="side-panel" id="sidePanel">
+            <div class="side-panel-head">
+                <div class="logo">
+                    <img src="./resources/images/logo.png" alt="Logo" />
+                </div>
+                <a href="" class="close-button" id="closeButton">X</a>
+            </div>
+            <ul>
+                <li><a href="#section1">Section 1</a></li>
+                <li><a href="#section2">Section 2</a></li>
+                <li><a href="#section3">Section 3</a></li>
+            </ul>
+        </div>
+
+        <main>
+            <section id="section1">
+                <h1>Section 1</h1>
+                <div class="table-container">
+                    <table>
+                        <tbody id="tableBody"></tbody>
+                    </table>
+                </div>
+            </section>
+
+            <section id="section2">
+                <h2>Section 2</h2>
+                <div class="image-content">
+                    <div class="image-container">
+                        <img src="./resources/images/image1.jpeg" alt="Image 1" />
+                    </div>
+                    <div class="image-container">
+                        <img src="./resources/images/image2.png" alt="Image 2" />
+                        <p>Caption for Image 2</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="section3">
+                <h3>Section 3</h3>
+                <div id="paragraphContainer"></div>
+            </section>
+        </main>
+
+        <footer>
+            <p>&copy; 2023 My Website. All rights reserved.</p>
+        </footer>
+
+        <script>
+            // JavaScript to generate table rows dynamically
+            var tableBody = document.getElementById("tableBody");
+            for (var i = 1; i <= 20; i++) {
+                var row = document.createElement("tr");
+                for (var j = 1; j <= 20; j++) {
+                    var cell = document.createElement("td");
+                    cell.textContent = "Word " + i + "-" + j;
+                    row.appendChild(cell);
+                }
+                tableBody.appendChild(row);
+            }
+        </script>
+        <script>
+            // JavaScript to handle menu button and side panel functionality
+            var menuButton = document.getElementById("menuButton");
+            var sidePanel = document.getElementById("sidePanel");
+            var closeButton = document.getElementById("closeButton");
+
+            // Scroll to the section on menu item click
+            const menuItems = sidePanel.querySelectorAll("ul li a");
+            menuItems.forEach(function (menuItem) {
+                menuItem.addEventListener("click", function (e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute("href");
+                    const targetSection = document.querySelector(targetId);
+
+                    // Close the side panel
+                    sidePanel.classList.remove("open");
+
+                    // Scroll to the section
+                    targetSection.scrollIntoView({
+                        behavior: "smooth",
+                    });
+                });
+            });
+
+            menuButton.addEventListener("click", function () {
+                sidePanel.classList.toggle("open");
+            });
+            closeButton.addEventListener("click", function () {
+                sidePanel.classList.remove("open");
+            });
+        </script>
+        <script>
+            function generateParagraphs(count) {
+            const paragraphContainer = document.getElementById('paragraphContainer');
+
+            for (let i = 1; i <= count; i++) {
+                const heading = document.createElement('h3');
+                heading.textContent = 'Paragraph ' + i;
+
+                const paragraph = document.createElement('p');
+                paragraph.textContent = generateRandomParagraphInMalayalam();
+
+                paragraphContainer.appendChild(heading);
+                paragraphContainer.appendChild(paragraph);
+            }
+        }
+
+        function generateRandomParagraphInMalayalam() {
+            // Replace this with your own code to generate random Malayalam paragraphs
+            const paragraphs = [
+                'ഒരു പാഠം മലയാളത്തിൽ',
+                'മറ്റൊരു പാഠം മലയാളത്തിൽ',
+                'ഇന്നത്തെ വാർത്തകൾ',
+                'അനുഭവങ്ങൾ നല്കുന്ന ഒരു പാഠം',
+                'ഇത് ഒരു പാഠമാണ്'
+            ];
+
+            const randomIndex = Math.floor(Math.random() * paragraphs.length);
+            return paragraphs[randomIndex];
+        }
+        generateParagraphs(5);
+        </script>
+    </body>
+</html>
